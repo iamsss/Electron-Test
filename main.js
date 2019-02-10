@@ -23,7 +23,8 @@ function createWindow () {
   })
   );
 
-  win.on('closed',() =>{
+  win.on('closed',() => 
+  {
     win = null;
   })
 
@@ -31,9 +32,8 @@ function createWindow () {
 
 }
 
-ipc.on('open-error-dialog',function(event){
-  dailog.showErrorBox('An Error Message','Demo of Error Dailog');
-  event.sender.send('opened-error-dailog','Main Process Open Error Dailog');
+ipc.on('async-message',function(event){
+  event.sender.send('async-reply','Main Process Open Error Dailog');
 });
 
 // This method will be called when Electron has finished

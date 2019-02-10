@@ -2,14 +2,16 @@ console.log("From Index .js");
 const electron = require("electron");
 const ipc = electron.ipcRenderer;
 
-const errorBtn = document.getElementById("errorBtn");
+const asyncBtn = document.getElementById("asyncBtn");
 
-errorBtn.addEventListener('click', function(event){
+asyncBtn.addEventListener('click', function(event){
 
     console.log("I AM Clicked");
-    ipc.send('open-error-dialog');
+    ipc.send('async-message');
+    
+  console.log('Async Message 2');
 });
 
-ipc.on('opened-error-dailog', function(event, arg){
+ipc.on('async-reply', function(event, arg){
     console.log(arg);
 });
