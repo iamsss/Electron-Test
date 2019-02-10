@@ -25,3 +25,7 @@ syncBtn.addEventListener('click', function(event){
 ipc.on('async-reply', function(event, arg){
     console.log(arg);
 });
+
+const BrowserWindow = electron.remote.BrowserWindow;
+let window = new BrowserWindow(); // synchronomous IPC 
+window.loadURL('http://github.com'); 
