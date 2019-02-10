@@ -7,6 +7,9 @@ const ipc = electron.ipcMain;
 
 const dailog = electron.dialog;
 
+const Menu = electron.Menu;
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -42,7 +45,17 @@ ipc.on('sync-message', function(event){
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', function(){
+  createWindow();
+  const template = [
+    {
+      label: 'demo'
+    }
+  ]
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
