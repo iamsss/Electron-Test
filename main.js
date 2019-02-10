@@ -33,7 +33,9 @@ function createWindow () {
 
 ipc.on('open-error-dialog',function(event){
   dailog.showErrorBox('An Error Message','Demo of Error Dailog');
-})
+  event.sender.send('opened-error-dailog','Main Process Open Error Dailog');
+});
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
