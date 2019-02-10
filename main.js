@@ -5,47 +5,32 @@ const url = require("url");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win, dimWindow, colorWindow, framelessWindow;
-
-let parentWindow, childWindow;
+let win;
 
 function createWindow () {
-  // win = new BrowserWindow(); // Deafault Wnodow
-  // dimWindow = new BrowserWindow({
-  //   width:400,
-  //   height:400,
-  //   maxHeight: 600,
-  //   maxWidth: 600
-  // }); // Dimenson Wndow
-  // colorWindow = new BrowserWindow({
-  //   backgroundColor: '#228b22'
-  // }) // ColorWindow
 
-  // framelessWindow = new BrowserWindow({
-  //   backgroundColor: '#800000' , frame: false
-  // })
  
-  parentWindow = new BrowserWindow({
-    title: 'Parent'
+  win = new BrowserWindow({
+    show:false,
+    height:150,
+    width:500,
+    frame: false
   });
-  // childWindow = new BrowserWindow({
-  //   parent: parentWindow,
-  //   modal: true,
-  //   title: 'Child'
-  // }) // Note Parent Window never come infront of child window 
 
-  // childWindow.loadURL('https://google.com'); // child window open and than url get loaded
-
-  childWindow = new BrowserWindow({
-    show: false, // not show by default
-    parent: parentWindow,
-    modal: true,
-    title: 'Child'
+  win.loadURL(url.format({
+    pathname: path.join(__dirname,'index.html'),
+    protocol: 'file',
+    slashes: true
   })
-  childWindow.loadURL('https://google.com');
-  childWindow.once('ready-to-show', () => {
-    childWindow.show()
-  }) // Now child window will show after rendering the google.com and than show
+  );
+
+  win.on('closed',() =>{
+    win = null;
+  })
+
+  win.once('ready-to-show', ()=> {
+    win.show();
+  })
 }
 
 // This method will be called when Electron has finished

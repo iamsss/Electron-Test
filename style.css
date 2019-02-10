@@ -1,3 +1,8 @@
-h1{
-    color: red;
+body{
+    background-color: #222233;
+    color: #AACCFF;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 5px;
+    -webkit-app-region: drag;
 }
