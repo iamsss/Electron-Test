@@ -49,7 +49,30 @@ app.on('ready', function(){
   createWindow();
   const template = [
     {
-      label: 'demo'
+      label: 'demo',
+      submenu: [
+        {
+          label : 'submenu1',
+          click: function(){
+            console.log("Clicked Submenu 1");
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label : 'submenu2',
+          click: function(){
+            console.log("Clicked Submenu 2");
+          }
+        }
+      ]
+    }
+    ,{
+      label:'Help',
+      click: function(){
+        electron.shell.openExternal('http://www.google.com');
+      }
     }
   ]
   const menu = Menu.buildFromTemplate(template);
