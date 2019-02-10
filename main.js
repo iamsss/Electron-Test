@@ -5,29 +5,47 @@ const url = require("url");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win;
+let win, dimWindow, colorWindow, framelessWindow;
+
+let parentWindow, childWindow;
 
 function createWindow () {
-  // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  // win = new BrowserWindow(); // Deafault Wnodow
+  // dimWindow = new BrowserWindow({
+  //   width:400,
+  //   height:400,
+  //   maxHeight: 600,
+  //   maxWidth: 600
+  // }); // Dimenson Wndow
+  // colorWindow = new BrowserWindow({
+  //   backgroundColor: '#228b22'
+  // }) // ColorWindow
 
-  // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file',
-    slashes : true
-  }));
+  // framelessWindow = new BrowserWindow({
+  //   backgroundColor: '#800000' , frame: false
+  // })
+ 
+  parentWindow = new BrowserWindow({
+    title: 'Parent'
+  });
+  // childWindow = new BrowserWindow({
+  //   parent: parentWindow,
+  //   modal: true,
+  //   title: 'Child'
+  // }) // Note Parent Window never come infront of child window 
 
-  // Open the DevTools.
-   win.webContents.openDevTools()
+  // childWindow.loadURL('https://google.com'); // child window open and than url get loaded
 
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null
+  childWindow = new BrowserWindow({
+    show: false, // not show by default
+    parent: parentWindow,
+    modal: true,
+    title: 'Child'
   })
+  childWindow.loadURL('https://google.com');
+  childWindow.once('ready-to-show', () => {
+    childWindow.show()
+  }) // Now child window will show after rendering the google.com and than show
 }
 
 // This method will be called when Electron has finished
