@@ -36,6 +36,9 @@ ipc.on('async-message',function(event){
   event.sender.send('async-reply','Main Process Open Error Dailog');
 });
 
+ipc.on('sync-message', function(event){
+  event.returnValue = 'sync-reply';
+})
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
