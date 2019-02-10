@@ -88,9 +88,14 @@ app.on('ready', function(){
     }
     ,{
       label:'Help',
-      click: function(){
-        electron.shell.openExternal('http://www.google.com');
-      }
+      submenu:[{
+        label: 'About Electron',
+        click: function() {
+          electron.shell.openExternal('http://www.google.com');
+        },
+        accelerator :'CmdOrCtrl + Shift + H'
+
+      }]
     }
   ]
   const menu = Menu.buildFromTemplate(template);
