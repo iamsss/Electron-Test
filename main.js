@@ -8,6 +8,8 @@ const ipc = electron.ipcMain;
 const dailog = electron.dialog;
 
 const Menu = electron.Menu;
+const MenuItem = electron.MenuItem;
+
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -46,6 +48,8 @@ ipc.on('sync-message', function(event){
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function(){
+  
+  win = new BrowserWindow();
   createWindow();
   const template = [
     {
@@ -91,6 +95,18 @@ app.on('ready', function(){
   ]
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
+
+  const ctxMenu = new Menu()
+  ctxMenu.append(new MenuItem({
+    label:'Hello',
+    click: function(){
+      console.log('Context Menu Item Clicked');
+    }
+  }))
+  ctxMenu.append(new MenuItem({role: 'selectall'}))
+  win.webContents.on('context-menu',function(e,params){
+    ctxMenu.popup(win, params.x , params.y)
+  })
 
 })
 
